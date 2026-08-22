@@ -1,0 +1,96 @@
+pipeline:
+  name: "aerial_traffic_intelligence"
+  version: "1.0.0"
+  random_seed: 42
+  device: "auto" # "auto", "cpu", "cuda", "mps"
+  num_workers: 4
+  log_level: "INFO"
+
+data:
+  input_path: "data/raw"
+  output_dir: "outputs/run_default"
+  frame_sample_rate: 1 # Process every Nth frame (1 = full FPS)
+  max_frames: null # null for full video
+  cache_dir: "data/cache"
+  enable_checkpointing: true
+  chunk_size_frames: 300 # Stream chunking to prevent OOM on hours of video
+
+stabilization:
+  enabled: true
+  method: "orb_ransac" # "orb_ransac", "optical_flow", "ecc"
+  max_features: 2000
+  ransac_reproj_threshold: 3.0
+  smoothing_window: 15
+  crop_margin_ratio: 0.05
+  fallback_to_identity: true
+
+detection:
+  detector_type: "yolov8" # "yolov8", "rtdetr", "torchvision", "dummy"
+  model_path: "yolov8x.pt"
+  confidence_threshold: 0.25
+  iou_threshold: 0.50
+  image_size: 1280
+  sliced_inference:
+    enabled: true
+    slice_height: 640
+    slice_width: 640
+    overlap_height_ratio: 0.20
+    overlap_width_ratio: 0.20
+    perform_standard_pred: true
+    postprocess_match_metric: "IOU"
+    postprocess_match_threshold: 0.50
+  class_mapping_path: "configs/class_mapping.yaml"
+
+tracking:
+  tracker_type: "botsort" # "bytetrack", "botsort"
+  track_high_thresh: 0.50
+  track_low_thresh: 0.15
+  new_track_thresh: 0.60
+  track_buffer: 60 # Number of lost frames before terminating track
+  match_thresh: 0.80
+  fuse_score: true
+  cmc_enabled: true # Camera motion compensation
+  reid_enabled: true
+  reid_model_path: null
+  reid_distance_threshold: 0.35
+  long_term_retention_frames: 150
+
+calibration:
+  config_path: "configs/calibration.yaml"
+
+trajectories:
+  min_track_length: 10
+  smoothing_method: "kalman" # "kalman", "savitzky_golay", "gaussian", "none"
+  savgol_window: 11
+  savgol_polyorder: 3
+  kalman_process_noise: 0.1
+  kalman_measurement_noise: 1.0
+  max_plausible_speed_mps: 60.0 # 216 km/h
+  max_plausible_accel_mps2: 12.0
+
+traffic:
+  config_path: "configs/analytics.yaml"
+
+events:
+  enabled: true
+  hard_braking_threshold_mps2: -4.5
+  hard_accel_threshold_mps2: 3.5
+  wrong_way_angle_threshold_deg: 120.0
+  stopped_vehicle_duration_s: 5.0
+  cut_in_ttc_threshold_s: 2.0
+  unsafe_merge_ttc_threshold_s: 2.5
+  pedestrian_conflict_pet_threshold_s: 2.0
+
+discovery:
+  enabled: true
+  clustering_method: "dbscan" # "dbscan", "hdbscan", "kmeans"
+  anomaly_detector: "isolation_forest" # "isolation_forest", "lof"
+  contamination: 0.05
+  n_clusters: 8
+
+reporting:
+  generate_html: true
+  generate_json: true
+  generate_csv: true
+  generate_parquet: true
+  generate_plots: true

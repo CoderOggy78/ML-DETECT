@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  traffic-intelligence:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traffic_intelligence_pipeline
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./configs:/app/configs
+      - ./weights:/app/weights
+    environment:
+      - PYTHONUNBUFFERED=1
+      - OMP_NUM_THREADS=4
+    command: ["run", "--input", "data/raw", "--output", "outputs/run_default", "--config", "configs/default.yaml"]
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: traffic_intelligence_dashboard
+    volumes:
+      - ./outputs:/app/outputs
+      - ./configs:/app/configs
+    ports:
+      - "8501:8501"
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["dashboard", "--port", "8501", "--host", "0.0.0.0"]

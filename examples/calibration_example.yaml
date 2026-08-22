@@ -1,0 +1,16 @@
+calibration:
+  mode: "homography" # "homography" or "telemetry" or "scale_factor"
+  
+  # Planar homography correspondence points
+  # Pick 4 ground landmarks (e.g. crosswalk corners, lane paint corners, manhole covers)
+  homography:
+    image_points:
+      - [320.0, 240.0]  # Point 1 (px)
+      - [960.0, 240.0]  # Point 2 (px)
+      - [1120.0, 680.0] # Point 3 (px)
+      - [160.0, 680.0]  # Point 4 (px)
+    world_points:
+      - [0.0, 0.0]      # Point 1 (meters)
+      - [40.0, 0.0]     # Point 2 (meters)
+      - [40.0, 50.0]    # Point 3 (meters)
+      - [0.0, 50.0]     # Point 4 (meters)

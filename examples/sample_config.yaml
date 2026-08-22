@@ -1,0 +1,37 @@
+pipeline:
+  name: "aerial_intersection_analysis"
+  device: "auto" # "auto", "cpu", "cuda", "mps"
+  log_level: "INFO"
+
+data:
+  input_path: "data/raw/drone_flight_01.mp4"
+  output_dir: "outputs/intersection_run"
+  frame_sample_rate: 1
+  max_frames: null
+  chunk_size_frames: 300
+
+stabilization:
+  enabled: true
+  method: "orb_ransac"
+  max_features: 2000
+
+detection:
+  detector_type: "yolov8"
+  model_path: "yolov8x.pt"
+  confidence_threshold: 0.25
+  sliced_inference:
+    enabled: true
+    slice_height: 640
+    slice_width: 640
+
+tracking:
+  tracker_type: "botsort"
+  track_high_thresh: 0.50
+  track_buffer: 60
+  cmc_enabled: true
+  reid_enabled: true
+
+calibration:
+  mode: "scale_factor"
+  scale:
+    meters_per_pixel: 0.045 # 4.5 cm / pixel

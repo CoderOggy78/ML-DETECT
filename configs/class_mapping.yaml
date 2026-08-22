@@ -1,0 +1,42 @@
+# Class mapping from various object detector label vocabularies (COCO, VisDrone, UA-DETRAC)
+# to unified traffic intelligence classes:
+# CAR, LGV, HGV, BUS, TRUCK, MOTORCYCLE, PEDESTRIAN, UNKNOWN
+
+mapping:
+  # Standard COCO classes
+  "car": "CAR"
+  "truck": "TRUCK"
+  "bus": "BUS"
+  "motorcycle": "MOTORCYCLE"
+  "bicycle": "MOTORCYCLE"
+  "person": "PEDESTRIAN"
+  "pedestrian": "PEDESTRIAN"
+
+  # Light Goods Vehicles (LGV) / Vans / Pickups
+  "van": "LGV"
+  "minivan": "LGV"
+  "pickup": "LGV"
+  "suv": "CAR"
+  "sedan": "CAR"
+  "hatchback": "CAR"
+  "auto": "CAR"
+  "automobile": "CAR"
+
+  # Heavy Goods Vehicles (HGV) / Lorries / Articulated Trucks
+  "lorry": "HGV"
+  "trailer": "HGV"
+  "semi-trailer": "HGV"
+  "heavy-truck": "HGV"
+  "articulated_truck": "HGV"
+  "tanker": "HGV"
+
+  # VisDrone classes
+  "pedestrian_visdrone": "PEDESTRIAN"
+  "people": "PEDESTRIAN"
+  "bicycle_visdrone": "MOTORCYCLE"
+  "motor": "MOTORCYCLE"
+  "awning-tricycle": "MOTORCYCLE"
+  "tricycle": "MOTORCYCLE"
+
+# Default class if unrecognized
+default_class: "UNKNOWN"

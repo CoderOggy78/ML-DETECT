@@ -1,0 +1,32 @@
+tracker:
+  type: "botsort" # "bytetrack" or "botsort"
+  track_high_thresh: 0.50
+  track_low_thresh: 0.15
+  new_track_thresh: 0.60
+  track_buffer: 60
+  match_thresh: 0.80
+  proximity_thresh: 0.50
+  appearance_thresh: 0.25
+
+  kalman_filter:
+    std_weight_position: 0.05
+    std_weight_velocity: 0.00625
+
+  cmc:
+    enabled: true
+    method: "orb" # "orb", "sparse_optflow"
+    max_features: 1000
+
+  reid:
+    enabled: true
+    model_name: "osnet_x0_25"
+    feature_dim: 512
+    distance_metric: "cosine"
+    max_distance: 0.35
+    history_length: 50
+    ema_alpha: 0.90
+
+  lifecycle:
+    min_hits_to_activate: 3
+    max_lost_age: 60
+    long_term_reid_max_age: 180

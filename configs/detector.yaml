@@ -1,0 +1,27 @@
+detector:
+  backend: "yolo" # "yolo", "rtdetr", "torchvision", "dummy"
+  model_name: "yolov8x.pt"
+  device: "auto"
+  half_precision: true
+  confidence_threshold: 0.25
+  iou_threshold: 0.50
+  max_detections_per_frame: 500
+
+  class_specific_thresholds:
+    pedestrian: 0.20
+    motorcycle: 0.22
+    car: 0.25
+    lgv: 0.25
+    hgv: 0.30
+    bus: 0.30
+    truck: 0.30
+
+  sliced_inference:
+    enabled: true
+    slice_height: 640
+    slice_width: 640
+    overlap_height_ratio: 0.20
+    overlap_width_ratio: 0.20
+    perform_standard_pred: true
+    merge_type: "NMM" # "NMS" or "NMM" (Non-Maximum Merging)
+    merge_iou_threshold: 0.50

@@ -1,0 +1,33 @@
+analytics:
+  time_windows_s: [60, 300, 900] # 1m, 5m, 15m intervals
+  speed_unit: "kmh" # "kmh" or "mps"
+  
+  # Traffic Flow & Level of Service Thresholds (speeds in km/h)
+  level_of_service:
+    free_flow_speed_kmh: 50.0
+    mild_congestion_speed_kmh: 35.0
+    moderate_congestion_speed_kmh: 20.0
+    severe_congestion_speed_kmh: 10.0
+    stopped_speed_kmh: 3.0
+
+  # Queue Detection Parameters
+  queues:
+    speed_threshold_kmh: 5.0
+    min_dwell_time_s: 3.0
+    max_vehicle_gap_m: 8.0
+    min_queue_vehicles: 2
+
+  # Movement & Intersection Zones (Optional polygonal definitions)
+  zones:
+    auto_discover: true
+    user_zones: [] # List of {name: "North_Approach", polygon: [[x1, y1], [x2, y2], ...], type: "entry" | "exit" | "conflict"}
+
+  # Surrogate Safety / Conflict Parameters
+  surrogate_safety:
+    ttc_threshold_critical_s: 1.5
+    ttc_threshold_warning_s: 2.5
+    pet_threshold_critical_s: 1.0
+    pet_threshold_warning_s: 2.0
+    drac_threshold_critical_mps2: 4.0
+    drac_threshold_warning_mps2: 2.5
+    spatial_influence_radius_m: 25.0 # Max radius for interaction graph edges
