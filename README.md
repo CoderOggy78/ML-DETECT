@@ -21,6 +21,10 @@ $$\text{DETECTIONS} \xrightarrow{\text{Association}} \text{TRACKS} \xrightarrow{
 4. **Interactions** model *HOW* road users dynamically influenced one another.
 5. **Analytics & Discovery** uncover *WHY* traffic behaves the way it does.
 
+
+<img width="1389" height="791" alt="Screenshot 2026-08-22 at 1 22 28 PM" src="https://github.com/user-attachments/assets/c4ca4eeb-ae60-4407-92e0-50f7912e335c" />
+
+
 ---
 
 ## 🏛️ System Architecture
