@@ -29,28 +29,6 @@ $$\text{DETECTIONS} \xrightarrow{\text{Association}} \text{TRACKS} \xrightarrow{
 
 ## 🏛️ System Architecture
 
-```mermaid
-graph TD
-    A[Raw Drone Video / Image Sequence] --> B[Data Ingestion & Telemetry Reader]
-    B --> C[Camera Motion Compensation & Video Stabilization]
-    C --> D[Small-Object Sliced / Tiled Detector]
-    D --> E[Multi-Object Tracker: ByteTrack / BoT-SORT + ReID]
-    E --> F[Planar Homography / Telemetry Coordinate Transform]
-    F --> G[World-Coordinate Trajectory Smoothing: RTS Kalman / Savitzky-Golay]
-    G --> H[Physical Kinematics: Speed, Acceleration, Jerk, Heading]
-    H --> I[Unsupervised Road Model & Movement Classification]
-    H --> J[Queue Detection & Level of Service Congestion Analysis]
-    H --> K[Spatial-Temporal Interaction Graph: KDTree O(N log N)]
-    K --> L[Surrogate Safety Metrics: TTC, PET, DRAC]
-    H & L --> M[Behavioral Event Engine: Braking, Cut-Ins, Wrong-Way]
-    H --> N[Open-Vocabulary Discovery: 25-Dim Latent Embeddings & Isolation Forest]
-    I & J & L & M & N --> O[Self-Consistency Quality Evaluator]
-    O --> P[Artifact Persistence: Parquet, CSV, JSON, HTML Report]
-    P --> Q[Interactive Streamlit Dashboard]
-```
-
----
-
 ## 🔬 Mathematical Formulations
 
 ### 1. Camera Motion Compensation (CMC)
