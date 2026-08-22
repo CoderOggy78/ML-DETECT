@@ -27,8 +27,6 @@ $$\text{DETECTIONS} \xrightarrow{\text{Association}} \text{TRACKS} \xrightarrow{
 
 ---
 
-## 🏛️ System Architecture
-
 ## 🔬 Mathematical Formulations
 
 ### 1. Camera Motion Compensation (CMC)
